@@ -12,7 +12,7 @@ if(ESP_PLATFORM)
   idf_component_register(
     SRCS ${BME69xLibrary}
     INCLUDE_DIRS "src" "src/bme69x"
-    REQUIRES arduino
+    REQUIRES arduino BME6xxSensor
   )
 
   return()

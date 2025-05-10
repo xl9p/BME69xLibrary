@@ -144,6 +144,7 @@ public:
       uint16_t *mul,
       uint16_t sharedHeatrDur,
       uint8_t profileLen) override;
+  void bme6xxSetHeaterProf(uint16_t temp, uint16_t dur) override;
 
   uint32_t bme6xxGetMeasDur(BME6xxMode opMode = BME6xxMode::SLEEP) override;
 
@@ -163,6 +164,7 @@ public:
   uint8_t bme6xxFetchData() override;
 
   size_t bme6xxGetAllData(BME6xxData *dataOut, size_t maxLen) override;
+  size_t bme6xxGetData(BME6xxData &dataOut) override;
 
   void bme6xxSelftestCheck() override;
 

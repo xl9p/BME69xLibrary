@@ -113,6 +113,10 @@ void BME69x::bme6xxSetHeaterProf(
   setHeaterProf(temp, mul, sharedHeatrDur, profileLen);
 }
 
+void BME69x::bme6xxSetHeaterProf(uint16_t temp, uint16_t dur) {
+  setHeaterProf(temp, dur);
+}
+
 uint32_t BME69x::bme6xxGetMeasDur(BME6xxMode opMode) {
   return getMeasDur(static_cast<uint8_t>(opMode));
 }
@@ -163,6 +167,29 @@ size_t BME69x::bme6xxGetAllData(BME6xxData *dataOut, size_t maxLen) {
     dataOut[i].meas_timestamp = sensorData[i].meas_timestamp;
   };
   return maxLen;
+}
+
+size_t BME69x::bme6xxGetData(BME6xxData &dataOut) {
+  bme69x_data tempData{};
+  size_t fieldsLeft = getData(tempData);
+
+  dataOut.gas_index = tempData.gas_index;
+  dataOut.gas_resistance = tempData.gas_resistance;
+  dataOut.gas_wait = tempData.gas_wait;
+
+  dataOut.humidity = tempData.humidity;
+  dataOut.pressure = tempData.pressure;
+  dataOut.temperature = tempData.temperature;
+
+  dataOut.meas_index = tempData.meas_index;
+  dataOut.meas_timestamp = tempData.meas_timestamp;
+
+  dataOut.res_heat = tempData.res_heat;
+  dataOut.idac = tempData.idac;
+
+  dataOut.status = tempData.status;
+
+  return fieldsLeft;
 }
 
 void BME69x::bme6xxSelftestCheck() { selftestCheck(); }
